@@ -1,16 +1,15 @@
-import javax.naming.Name;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
-public class StudentManager {
+public class StudentManagerHashSet {
 
-    public static void StudentList(ArrayList<Student> s) {
+    public static void StudentList(HashSet<Student> s) {
         for (Student student : s) {
             System.out.println(student);
         }
     }
 
-    public static void StudentSearch(ArrayList<Student> s) {
+    public static void StudentSearch(HashSet<Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
@@ -21,7 +20,7 @@ public class StudentManager {
         }
     }
 
-    public static void StudentAdd(ArrayList<Student> s) {
+    public static void StudentAdd(HashSet<Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
@@ -32,7 +31,7 @@ public class StudentManager {
         s.add(new Student(id, name, age));
     }
 
-    public static void StudentUpdate(ArrayList<Student> s) {
+    public static void StudentUpdate(HashSet<Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
@@ -58,7 +57,7 @@ public class StudentManager {
         }
     }
 
-    public static void StudentDelete(ArrayList<Student> s) {
+    public static void StudentDelete(HashSet<Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
@@ -71,18 +70,18 @@ public class StudentManager {
 
     public static void main(String[] args) {
 
-        ArrayList<Student> StudentArrayList = new ArrayList<Student>();
+        HashSet<Student> StudentHashSet = new HashSet<Student>();
 
         Student stu1 = new Student(1, "Jaume", 18);
         Student stu2 = new Student(2, "Samuel", 19);
         Student stu3 = new Student(3, "Daniel", 22);
         Student stu4 = new Student(4, "Ikeri", 21);
         Student stu5 = new Student(5, "Martina", 18);
-        StudentArrayList.add(stu1);
-        StudentArrayList.add(stu2);
-        StudentArrayList.add(stu3);
-        StudentArrayList.add(stu4);
-        StudentArrayList.add(stu5);
+        StudentHashSet.add(stu1);
+        StudentHashSet.add(stu2);
+        StudentHashSet.add(stu3);
+        StudentHashSet.add(stu4);
+        StudentHashSet.add(stu5);
 
         boolean exit = false;
         do {
@@ -100,19 +99,19 @@ public class StudentManager {
             int option = sc.nextInt();
             switch (option) {
                 case 1:
-                    StudentList(StudentArrayList);
+                    StudentList(StudentHashSet);
                     break;
                 case 2:
-                    StudentSearch(StudentArrayList);
+                    StudentSearch(StudentHashSet);
                     break;
                 case 3:
-                    StudentAdd(StudentArrayList);
+                    StudentAdd(StudentHashSet);
                     break;
                 case 4:
-                    StudentUpdate(StudentArrayList);
+                    StudentUpdate(StudentHashSet);
                     break;
                 case 5:
-                    StudentDelete(StudentArrayList);
+                    StudentDelete(StudentHashSet);
                     break;
                 case 6:
                     exit = true;

@@ -1,27 +1,27 @@
-import javax.naming.Name;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class StudentManager {
+public class StudentManagerHashMap {
 
-    public static void StudentList(ArrayList<Student> s) {
-        for (Student student : s) {
+    public static void StudentList(HashMap<Integer, Student> s) {
+        for (Student student : s.values()) {
             System.out.println(student);
         }
     }
 
-    public static void StudentSearch(ArrayList<Student> s) {
+    public static void StudentSearch(HashMap<Integer, Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
-        for (Student student : s) {
-            if (student.getId() == id) {
-                System.out.println(student);
-            }
+        Student student = s.get(id);
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("Student not found");
         }
     }
 
-    public static void StudentAdd(ArrayList<Student> s) {
+    public static void StudentAdd(HashMap<Integer, Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
@@ -29,60 +29,55 @@ public class StudentManager {
         String name = sc.next();
         System.out.print("Age: ");
         int age = sc.nextInt();
-        s.add(new Student(id, name, age));
+        s.put(id, new Student(id, name, age));
     }
 
-    public static void StudentUpdate(ArrayList<Student> s) {
+    public static void StudentUpdate(HashMap<Integer, Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
-        System.out.print("- Edit -\n1.Name \n2.Age\nOption:");
-        switch (sc.nextInt()) {
-            case 1:
-                System.out.print("New Name: ");
-                for (Student student : s) {
-                    if (student. getId() == id) {
-                        sc.nextLine();
-                        student.setName(sc.nextLine());
-                    }
-                }
-                break;
-            case 2:
-                System.out.print("New Age: ");
-                for (Student student : s) {
-                    if (student. getId() == id) {
-                        student.setAge(sc.nextInt());
-                    }
-                }
-                break;
+        Student student = s.get(id);
+        if (student != null) {
+            System.out.print("- Edit -\n1.Name \n2.Age\nOption:");
+            switch (sc.nextInt()) {
+                case 1:
+                    System.out.print("New Name: ");
+                    sc.nextLine();
+                    student.setName(sc.nextLine());
+                    break;
+                case 2:
+                    System.out.print("New Age: ");
+                    student.setAge(sc.nextInt());
+                    break;
+            }
+        } else {
+            System.out.println("Student not found");
         }
     }
 
-    public static void StudentDelete(ArrayList<Student> s) {
+    public static void StudentDelete(HashMap<Integer, Student> s) {
         Scanner sc = new Scanner(System.in);
         System.out.print("ID: ");
         int id = sc.nextInt();
-        for (Student student : s) {
-            if (student.getId() == id) {
-                s.remove(student);
-            }
+        if (s.remove(id) == null) {
+            System.out.println("Student not found");
         }
     }
 
     public static void main(String[] args) {
 
-        ArrayList<Student> StudentArrayList = new ArrayList<Student>();
+        HashMap<Integer, Student> StudentHashMap = new HashMap<>();
 
         Student stu1 = new Student(1, "Jaume", 18);
         Student stu2 = new Student(2, "Samuel", 19);
         Student stu3 = new Student(3, "Daniel", 22);
         Student stu4 = new Student(4, "Ikeri", 21);
         Student stu5 = new Student(5, "Martina", 18);
-        StudentArrayList.add(stu1);
-        StudentArrayList.add(stu2);
-        StudentArrayList.add(stu3);
-        StudentArrayList.add(stu4);
-        StudentArrayList.add(stu5);
+        StudentHashMap.put(stu1.getId(), stu1);
+        StudentHashMap.put(stu2.getId(), stu2);
+        StudentHashMap.put(stu3.getId(), stu3);
+        StudentHashMap.put(stu4.getId(), stu4);
+        StudentHashMap.put(stu5.getId(), stu5);
 
         boolean exit = false;
         do {
@@ -100,19 +95,19 @@ public class StudentManager {
             int option = sc.nextInt();
             switch (option) {
                 case 1:
-                    StudentList(StudentArrayList);
+                    StudentList(StudentHashMap);
                     break;
                 case 2:
-                    StudentSearch(StudentArrayList);
+                    StudentSearch(StudentHashMap);
                     break;
                 case 3:
-                    StudentAdd(StudentArrayList);
+                    StudentAdd(StudentHashMap);
                     break;
                 case 4:
-                    StudentUpdate(StudentArrayList);
+                    StudentUpdate(StudentHashMap);
                     break;
                 case 5:
-                    StudentDelete(StudentArrayList);
+                    StudentDelete(StudentHashMap);
                     break;
                 case 6:
                     exit = true;
