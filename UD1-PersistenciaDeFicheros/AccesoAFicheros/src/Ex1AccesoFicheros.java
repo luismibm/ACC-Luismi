@@ -8,13 +8,14 @@ public class Ex1AccesoFicheros {
         int minNum = 999999999;
 
         File nums = new File("Documentos/numeros.txt");
+
         try {
 
             FileReader numsReader = new FileReader(nums);
             BufferedReader numsBufferedReader = new BufferedReader(numsReader);
 
             String line;
-            while ((numsBufferedReader.readLine()) != null) {
+            while (numsBufferedReader.readLine() != null) {
                 line = numsBufferedReader.readLine();
                 int num = Integer.parseInt(line);
                 if (num > maxNum ) {
