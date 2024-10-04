@@ -1,4 +1,3 @@
-import javax.naming.Name;
 import java.io.*;
 import java.util.*;
 
@@ -30,7 +29,6 @@ public class Ex1Serializacion {
         List<Subject> subjects = new ArrayList<>();
         List<String> subjectNames = Arrays.asList("PRG", "SRV", "MOV", "INT", "SGE");
 
-        // Falta manejar excepciones y limtar le rango de 1 a 10
         for (String subjectName : subjectNames) {
             double mark = -1;
             while (mark < 1 || mark > 10) {
