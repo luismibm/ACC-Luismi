@@ -32,33 +32,37 @@ public class Ex1Serializacion {
 
         // Falta manejar excepciones y limtar le rango de 1 a 10
         for (String subjectName : subjectNames) {
-            System.out.print(subjectName + ": ");
-            double mark = sc.nextDouble();
-            sc.nextLine();
+            double mark = -1;
+            while (mark < 1 || mark > 10) {
+                System.out.print(subjectName + ": ");
+                try {
+                    mark = sc.nextDouble();
+                    if (mark < 1 || mark > 10) {
+                        System.out.println("Error: Not a number between 1 ans 10");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Error: Not a number");
+                    sc.nextLine();
+                }
+            }
             subjects.add(new Subject(subjectName, mark));
         }
 
-        printSubjectMarks(subjects);
-
-        // Pruebas Serialize + Deserialize
-
-        Subject serializeTest = new Subject("Test", 10);
-
         try {
             FileOutputStream fileOut = new FileOutputStream("subject.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(serializeTest);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(subjects);
             System.out.println("Serialize: OK");
         } catch (IOException e) {
             System.out.println("Serialize: ERROR - IOException");
         }
 
-        Subject deserializeTest = null;
+        List<Subject> deserializedSubjects = null;
 
         try {
             FileInputStream fileIn = new FileInputStream("subject.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            deserializeTest = (Subject) in.readObject();
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            deserializedSubjects = (List<Subject>) objectIn.readObject();
             System.out.println("Deserialize: OK");
         } catch (IOException e) {
             System.out.println("Deserialize: ERROR - IOException");
@@ -66,9 +70,8 @@ public class Ex1Serializacion {
             System.out.println("Deserialize: ERROR - ClassNotFoundException");
         }
 
-        if (deserializeTest != null) {
-            System.out.println("Name: " + deserializeTest.name);
-            System.out.println("Mark: " + deserializeTest.mark);
+        if (deserializedSubjects != null) {
+            printSubjectMarks(deserializedSubjects);
         }
 
     }
