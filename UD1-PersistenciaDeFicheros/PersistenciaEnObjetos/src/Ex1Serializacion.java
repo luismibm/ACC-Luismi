@@ -1,6 +1,5 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import javax.naming.Name;
+import java.io.*;
 import java.util.*;
 
 public class Ex1Serializacion {
@@ -43,15 +42,33 @@ public class Ex1Serializacion {
 
         // Pruebas Serialize + Deserialize
 
-        Subject test = new Subject("Test", 10);
+        Subject serializeTest = new Subject("Test", 10);
 
         try {
             FileOutputStream fileOut = new FileOutputStream("subject.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(test);
+            out.writeObject(serializeTest);
             System.out.println("Serialize: OK");
         } catch (IOException e) {
-            System.out.println("Serialize: ERROR");
+            System.out.println("Serialize: ERROR - IOException");
+        }
+
+        Subject deserializeTest = null;
+
+        try {
+            FileInputStream fileIn = new FileInputStream("subject.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            deserializeTest = (Subject) in.readObject();
+            System.out.println("Deserialize: OK");
+        } catch (IOException e) {
+            System.out.println("Deserialize: ERROR - IOException");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Deserialize: ERROR - ClassNotFoundException");
+        }
+
+        if (deserializeTest != null) {
+            System.out.println("Name: " + deserializeTest.name);
+            System.out.println("Mark: " + deserializeTest.mark);
         }
 
     }
